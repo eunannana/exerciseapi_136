@@ -20,6 +20,7 @@ class _KategoriBarangState extends State<KategoriBarang> {
   @override
   void initState() {
     // TODO: implement initState
+    getKategoriBarang();
     super.initState();
   }
 
