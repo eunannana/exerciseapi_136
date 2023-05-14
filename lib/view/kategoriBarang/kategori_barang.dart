@@ -1,3 +1,4 @@
+import 'package:exerciseapi_136/view/kategoriBarang/update_kategori_barang.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -31,27 +32,66 @@ class _KategoriBarangState extends State<KategoriBarang> {
     });
   }
 
+  void deleteKategoriBarang(int id) async{
+    await kategoriBarangController.deleteKategoriBarang(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Category'),
       ),
-      body: SafeArea(child: ListView.builder(itemCount: listKategoriBarang.length,itemBuilder: (context, index){
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: listKategoriBarang.length,
+          itemBuilder: (context, index){
         return Card(
           child: ListTile(
             title: Text(listKategoriBarang[index].nama),
-            trailing: IconButton(onPressed: (){},
-            icon: const Icon(Icons.edit),),
-          ),
-        );
-      })),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+           children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(
+                            builder: (context) => const updateKategoriBarang()
+                          )
+                        );
+                      },
+                      icon: const Icon(Icons.edit_note)
+                    ),
+                    IconButton(
+                      onPressed:() {
+                        deleteKategoriBarang(listKategoriBarang[index].id);
+                        setState(() {
+                          listKategoriBarang.removeAt(index);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Successfully delete category')
+                            )
+                          );
+                        });
+                      },
+                      icon: const Icon(Icons.delete_sweep)
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        )
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
         Navigator.push(
           context, MaterialPageRoute(
             builder: (context) => const AddKategoriBarang()));
-      }),
+      },
+      child: const Icon(Icons.post_add),
+      ),
     );
   }
 }

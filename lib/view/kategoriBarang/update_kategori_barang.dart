@@ -39,9 +39,7 @@ class _updateKategoriBarangState extends State<updateKategoriBarang> {
               onPressed: () {
                 if (formkey.currentState!.validate()) {
                   formkey.currentState!.save();
-                  Navigator.pop(context,
-                      MaterialPageRoute(
-                          builder: (context) => const KategoriBarang()));
+                   Navigator.pop(context,true);
                   var snackBar =
                       const SnackBar(content: Text('Successfully update data!'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
