@@ -33,4 +33,14 @@ class KategoriBarangController{
       throw Exception('Failed to add the category');
     }
   }
+
+  Future updateKategoriBarang(int id, String nama) async{
+    var result = await http.post(Uri.parse("${apiUrl}barang/updateKB/$id"), body: {"nama_kategori_barang": nama});
+    if (result.statusCode == 200) {
+      return json.decode(result.body);
+    }
+    else{
+      throw Exception('Failed to update the category');
+    }
+  }
 }
