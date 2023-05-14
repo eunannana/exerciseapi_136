@@ -20,29 +20,29 @@ class KategoriBarangModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'nama': nama,
+      'nama_kategori_barang': nama,
     };
   }
 
   factory KategoriBarangModel.fromMap(Map<String, dynamic> map) {
     return KategoriBarangModel(
-      nama: map['nama'] as String,
+      nama: map['nama_kategori_barang'] as String,
       id: map['id_kategori_barang']?.toInt() ?? 0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory KategoriBarangModel.fromJson(String source) => KategoriBarangModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory KategoriBarangModel.fromJson(String source) => KategoriBarangModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'KategoriBarangModel(nama: $nama, id: $id)';
 
   @override
-  bool operator ==(covariant KategoriBarangModel other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return 
+    return other is KategoriBarangModel &&
       other.nama == nama &&
       other.id == id;
   }
