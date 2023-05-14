@@ -1,7 +1,5 @@
 import 'package:exerciseapi_136/view/kategoriBarang/update_kategori_barang.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:exerciseapi_136/controller/kategori_barang_controller.dart';
 import 'package:exerciseapi_136/model/kategori_barang_model.dart';
 import 'package:exerciseapi_136/view/kategoriBarang/add_kategori_barang.dart';
@@ -53,13 +51,21 @@ class _KategoriBarangState extends State<KategoriBarang> {
               mainAxisSize: MainAxisSize.min,
            children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                        final result = await Navigator.push(
                           context, 
                           MaterialPageRoute(
-                            builder: (context) => const updateKategoriBarang()
+                            builder: (context) => updateKategoriBarang(
+                              prevname: listKategoriBarang[index].nama,
+                              id: listKategoriBarang[index].id
+                            )
                           )
                         );
+                        if (result != null && result) {
+                          getKategoriBarang();
+                          setState(() {
+                          });
+                        }
                       },
                       icon: const Icon(Icons.edit_note)
                     ),

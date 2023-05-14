@@ -1,14 +1,20 @@
+import 'package:exerciseapi_136/controller/kategori_barang_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:exerciseapi_136/view/kategoriBarang/kategori_barang.dart';
 
 class updateKategoriBarang extends StatefulWidget {
-  const updateKategoriBarang({super.key});
+  final int? id;
+  final String? prevname;
+  const updateKategoriBarang({super.key, this.id, this.prevname});
 
   @override
   State<updateKategoriBarang> createState() => _updateKategoriBarangState();
 }
 
 class _updateKategoriBarangState extends State<updateKategoriBarang> {
+String? nama;
+final kategoriBarangController = KategoriBarangController();
+
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
@@ -26,10 +32,14 @@ class _updateKategoriBarangState extends State<updateKategoriBarang> {
                 hintText: 'Category Name',
                 labelText: 'Category Name',
               ),
-              onChanged: (value) {},
+              onChanged: (value) {nama = value;},
+              initialValue: widget.prevname,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Category Name is required';
+                }
+                else if(value == widget.prevname){
+                  return 'Category name can not be same with the previous';
                 }
                 return null;
               },
@@ -39,6 +49,7 @@ class _updateKategoriBarangState extends State<updateKategoriBarang> {
               onPressed: () {
                 if (formkey.currentState!.validate()) {
                   formkey.currentState!.save();
+                  kategoriBarangController.updateKategoriBarang(widget.id!, nama!);
                    Navigator.pop(context,true);
                   var snackBar =
                       const SnackBar(content: Text('Successfully update data!'));
