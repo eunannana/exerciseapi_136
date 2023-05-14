@@ -43,4 +43,14 @@ class KategoriBarangController{
       throw Exception('Failed to update the category');
     }
   }
+
+  Future deleteKategoriBarang(int id) async{
+    var result = await http.post(Uri.parse("${apiUrl}barang/deleteKB/$id"));
+    if (result.statusCode == 200){
+      return json.decode(result.body);
+    }
+    else{
+      throw Exception("Failed to delete the category");
+    }
+  }
 }
