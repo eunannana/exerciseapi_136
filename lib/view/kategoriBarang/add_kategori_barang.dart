@@ -21,7 +21,7 @@ class _AddKategoriBarangState extends State<AddKategoriBarang> {
     KategoriBarangModel kategoriBarang = KategoriBarangModel(nama: nama!);
     await kategoriBarangController.addKategoriBarang(kategoriBarang);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
@@ -55,13 +55,9 @@ class _AddKategoriBarangState extends State<AddKategoriBarang> {
                 if (formkey.currentState!.validate()) {
                   formkey.currentState!.save();
                   AddKategoriBarang();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const KategoriBarang()));
-
+                   Navigator.pop(context,true);
                   var snackBar =
-                      const SnackBar(content: Text('Successfully save data!'));
+                      const SnackBar(content: Text('Successfully add data!'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
