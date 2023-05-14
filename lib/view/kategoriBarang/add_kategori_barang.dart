@@ -16,6 +16,12 @@ class _AddKategoriBarangState extends State<AddKategoriBarang> {
   final kategoriBarangController = KategoriBarangController();
   String? nama;
 
+  // ignore: non_constant_identifier_names
+  void AddKategoriBarang() async{
+    KategoriBarangModel kategoriBarang = KategoriBarangModel(nama: nama!);
+    await kategoriBarangController.addKategoriBarang(kategoriBarang);
+  }
+  
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
