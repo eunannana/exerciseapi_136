@@ -70,19 +70,46 @@ class _KategoriBarangState extends State<KategoriBarang> {
                       icon: const Icon(Icons.edit_note)
                     ),
                     IconButton(
-                      onPressed:() {
-                        deleteKategoriBarang(listKategoriBarang[index].id);
-                        setState(() {
-                          listKategoriBarang.removeAt(index);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Successfully delete category')
-                            )
-                          );
-                        });
-                      },
-                      icon: const Icon(Icons.delete_sweep)
-                    )
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: Text('Are you sure to delete this category?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    ).then((value) {
+      if (value) {
+        deleteKategoriBarang(listKategoriBarang[index].id);
+        setState(() {
+          listKategoriBarang.removeAt(index);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Successfully deleted category!')
+            )
+          );
+        });
+      }
+    });
+  },
+  icon: Icon(Icons.delete_sweep),
+)
+
                   ],
                 ),
               ),
